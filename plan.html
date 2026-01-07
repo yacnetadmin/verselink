@@ -168,7 +168,12 @@
             const verse = versePartRaw ? parseInt(versePartRaw, 10) : null;
             end = { bookCode: start.bookCode, bookName: start.bookName, chapter, verse };
           } else {
-            end = { bookCode: start.bookCode, bookName: start.bookName, chapter: parseInt(trimmed, 10), verse: null };
+            // If start has a verse, treat a lone number as a verse in the same chapter
+            if (start.verse != null) {
+              end = { bookCode: start.bookCode, bookName: start.bookName, chapter: start.chapter, verse: parseInt(trimmed, 10) };
+            } else {
+              end = { bookCode: start.bookCode, bookName: start.bookName, chapter: parseInt(trimmed, 10), verse: null };
+            }
           }
         }
       }
@@ -185,7 +190,15 @@
 
     function buildBibleUrl(range) {
       const startPart = buildSegment(range.start);
-      const endPart = range.end ? `-${buildSegment(range.end)}` : "";
+      let endPart = "";
+      if (range.end) {
+        // If end is in same chapter, only include verse number
+        if (range.end.chapter === range.start.chapter && range.end.verse != null) {
+          endPart = `-${range.end.verse}`;
+        } else {
+          endPart = `-${buildSegment(range.end)}`;
+        }
+      }
       return `https://www.bible.com/bible/59/${startPart}${endPart}.ESV`;
     }
 
