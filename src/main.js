@@ -248,7 +248,7 @@ function prepareReference(input) {
   return input
     .replace(/[\u2013\u2014]/g, "-")
     .replace(/[;,]/g, " ")
-    .replace(/\bv(?=\d)/gi, ":")
+    .replace(/v(?=\d)/gi, ":")
     .replace(/([A-Za-z])(\d)/g, "$1 $2")
     .replace(/^(\s*[1-3])(?!\s)(?=[A-Za-z])/i, (match) => `${match.trim()} `)
     .replace(/\s+/g, " ")
