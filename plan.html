@@ -214,9 +214,8 @@
             return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
           } catch (e) {
             // If this is a numeric-only segment and we have a previous book, try prepending the book name
-            // Normalize dashes for regex test
-            const normalizedSegment = segment.replace(/[\u2013\u2014]/g, "-");
-            if (lastBookName && /^[\d:\-\s]+$/.test(normalizedSegment)) {
+            // Check if segment contains no letters (numeric/punctuation only)
+            if (lastBookName && !/[a-z]/i.test(segment)) {
               try {
                 const augmentedSegment = lastBookName + ' ' + segment;
                 const range = parseReference(augmentedSegment);
