@@ -106,7 +106,7 @@
     function prepareReference(input) {
       return input
         .replace(/[\u2013\u2014]/g, "-")
-        .replace(/[;,]/g, " ")
+        .replace(/[;]/g, " ")
         .replace(/v(?=\d)/gi, ":")
         .replace(/([A-Za-z])(\d)/g, "$1 $2")
         .replace(/^(\s*[1-3])(?!\s)(?=[A-Za-z])/i, (match) => `${match.trim()} `)
@@ -204,11 +204,21 @@
 
     function convertScriptureToLink(scripture) {
       try {
-        const range = parseReference(scripture);
-        const url = buildBibleUrl(range);
-        return `<a href="${url}" target="_blank" rel="noopener">${scripture}</a>`;
+        // Split on commas to handle multiple passages on the same day
+        const segments = scripture.split(',').map(s => s.trim());
+        const links = segments.map(segment => {
+          try {
+            const range = parseReference(segment);
+            const url = buildBibleUrl(range);
+            return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
+          } catch (e) {
+            console.error(`Failed to parse "${segment}":`, e);
+            return segment;
+          }
+        });
+        return links.join(', ');
       } catch (e) {
-        console.error(`Failed to parse "${scripture}":`, e);
+        console.error(`Failed to process "${scripture}":`, e);
         return scripture;
       }
     }
