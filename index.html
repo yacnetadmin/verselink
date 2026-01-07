@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VerseLink Builder</title>
+  <meta name="description" content="Generate shareable Bible.com links with support for aliases, translations, and embed snippets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">VerseLink</p>
+      <h1>Bible.com link maker for clean embeds</h1>
+      <p class="lede">
+        Paste any passage (even shorthand like <span>Jn 3:16</span> or <span>Song 2:10-13</span>), pick a translation, and get a share-ready URL plus
+        HTML/Markdown snippets. Cross-chapter ranges are supported out of the box.
+      </p>
+      <div class="example-chips" id="exampleList"></div>
+    </header>
+
+    <section class="card">
+      <form id="linkForm" autocomplete="off">
+        <div class="field">
+          <label for="reference">Passage</label>
+          <input id="reference" name="reference" placeholder="e.g., John 3:16-4:2 or 1 Thes 5:16-18" spellcheck="false" />
+          <p class="hint">Supports aliases like <span>Jn</span>, <span>1 Thes</span>, <span>Song</span>, roman numerals, and mixed spacing.</p>
+        </div>
+
+        <div class="field">
+          <label for="translation">Translation</label>
+          <select id="translation" name="translation">
+            <option value="59" data-version-code="ESV" selected>English Standard Version (ESV)</option>
+            <option value="111" data-version-code="NIV">New International Version (NIV)</option>
+            <option value="1" data-version-code="KJV">King James Version (KJV)</option>
+            <option value="116" data-version-code="NLT">New Living Translation (NLT)</option>
+            <option value="114" data-version-code="NKJV">New King James Version (NKJV)</option>
+            <option value="97" data-version-code="CSB">Christian Standard Bible (CSB)</option>
+            <option value="1588" data-version-code="NASB1995">New American Standard Bible 1995 (NASB95)</option>
+            <option value="12" data-version-code="MSG">The Message (MSG)</option>
+            <option value="90" data-version-code="AMP">Amplified Bible (AMP)</option>
+            <option value="170" data-version-code="CEV">Contemporary English Version (CEV)</option>
+            <option value="CUSTOM" data-version-code="">Custom translation…</option>
+          </select>
+          <p class="hint">Defaults to ESV. Choose “Custom” if you need to enter a different YouVersion ID/code.</p>
+        </div>
+
+        <div class="field custom-translation" id="customTranslationFields" hidden>
+          <label>Custom translation details</label>
+          <div class="custom-grid">
+            <div>
+              <input id="customVersionId" placeholder="Version ID (e.g., 31102)" inputmode="numeric" aria-label="Custom version ID" />
+            </div>
+            <div>
+              <input id="customVersionCode" placeholder="Version code (e.g., CSB)" aria-label="Custom version code" maxlength="10" />
+            </div>
+          </div>
+          <p class="hint">Grab these values from an existing Bible.com link if you need a niche translation.</p>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Generate link</button>
+          <button type="button" class="ghost" id="resetBtn">Clear</button>
+        </div>
+        <p class="status" id="statusMessage" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card result" id="resultCard" data-state="empty">
+      <div class="result-head">
+        <div>
+          <p class="eyebrow">Result</p>
+          <h2 id="prettyReference">Waiting for a passage…</h2>
+        </div>
+        <a id="openLink" class="ghost" href="#" target="_blank" rel="noopener" aria-disabled="true">Open in new tab</a>
+      </div>
+
+      <div class="result-meta">
+        <div>
+          <p class="meta-label">You entered</p>
+          <p class="meta-value" id="resultInput">—</p>
+        </div>
+        <div>
+          <p class="meta-label">Translation</p>
+          <p class="meta-value" id="resultTranslation">—</p>
+        </div>
+        <button type="button" class="ghost slim" id="newLinkBtn" disabled>Create new link</button>
+      </div>
+
+      <div class="output-block">
+        <div class="output-label">Shareable URL</div>
+        <div class="output-value" id="linkOutput">Your link will appear here.</div>
+        <button type="button" class="copy" data-copy-target="linkOutput" disabled>Copy URL</button>
+      </div>
+
+      <div class="output-block">
+        <div class="output-label">Embed snippet</div>
+        <textarea id="embedOutput" rows="3" readonly placeholder="&lt;a href=...&gt;Your snippet will render after generating a link.&lt;/a&gt;"></textarea>
+        <button type="button" class="copy" data-copy-target="embedOutput" disabled>Copy HTML</button>
+      </div>
+
+      <div class="output-block">
+        <div class="output-label">Markdown snippet</div>
+        <textarea id="markdownOutput" rows="2" readonly placeholder="[Reference](https://www.bible.com/...)" ></textarea>
+        <button type="button" class="copy" data-copy-target="markdownOutput" disabled>Copy Markdown</button>
+      </div>
+    </section>
+
+    <section class="card tips">
+      <h3>Power-user tips</h3>
+      <ul>
+        <li>Use shorthand like <span>Jn</span>, <span>Ps</span>, <span>Song</span>, or roman numerals (e.g., <span>ii tim</span>).</li>
+        <li>Cross-chapter inputs such as <span>John 3:16-4:2</span> or <span>Ex 12-14</span> are parsed automatically.</li>
+        <li>Select a preset translation or enter any YouVersion ID/code pair for less common versions.</li>
+        <li>Copy buttons respect your clipboard permissions and fall back gracefully if needed.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
