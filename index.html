@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VerseLink Builder</title>
   <meta name="description" content="Generate shareable Bible.com links with support for aliases, translations, and embed snippets." />
+  <meta name="theme-color" content="#041a2f" />
+  <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -125,5 +127,14 @@
   </main>
 
   <script type="module" src="src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then((reg) => console.log('Service Worker registered:', reg))
+          .catch((err) => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

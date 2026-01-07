@@ -1,0 +1,24 @@
+{
+  "name": "VerseLink - Bible Link Generator",
+  "short_name": "VerseLink",
+  "description": "Generate shareable Bible.com links with support for aliases, translations, and embed snippets",
+  "start_url": "/verselink/",
+  "display": "standalone",
+  "background_color": "#020813",
+  "theme_color": "#041a2f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
