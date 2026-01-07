@@ -204,14 +204,27 @@
 
     function convertScriptureToLink(scripture) {
       try {
-        // Split on commas to handle multiple passages on the same day
         const segments = scripture.split(',').map(s => s.trim());
+        let lastBookName = null;
         const links = segments.map(segment => {
           try {
             const range = parseReference(segment);
+            lastBookName = range.start.bookName;
             const url = buildBibleUrl(range);
             return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
           } catch (e) {
+            // If this is a numeric-only segment and we have a previous book, try prepending the book name
+            if (lastBookName && /^[\d:\-\s]+$/.test(segment)) {
+              try {
+                const augmentedSegment = lastBookName + ' ' + segment;
+                const range = parseReference(augmentedSegment);
+                const url = buildBibleUrl(range);
+                return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
+              } catch (e2) {
+                console.error(`Failed to parse "${segment}" as continuation:`, e2);
+                return segment;
+              }
+            }
             console.error(`Failed to parse "${segment}":`, e);
             return segment;
           }
