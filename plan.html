@@ -1,12 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    a { color: #0066cc; text-decoration: none; border-bottom: 1px solid #0066cc; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
   <div id="scripture-plan"></div>
 
   <script>
+    // Book data and parsing logic from main.js
+    const BOOK_DATA = [
+      { code: "GEN", canonical: "Genesis", aliases: ["gen", "ge", "gn"] },
+      { code: "EXO", canonical: "Exodus", aliases: ["exo", "ex"] },
+      { code: "LEV", canonical: "Leviticus", aliases: ["lev", "lv", "levit"] },
+      { code: "NUM", canonical: "Numbers", aliases: ["num", "nums", "nm"] },
+      { code: "DEU", canonical: "Deuteronomy", aliases: ["deut", "deu", "dt"] },
+      { code: "JOS", canonical: "Joshua", aliases: ["jos", "josh", "jsh"] },
+      { code: "JDG", canonical: "Judges", aliases: ["jdg", "judg", "jud"] },
+      { code: "RUT", canonical: "Ruth", aliases: ["rut"] },
+      { code: "1SA", canonical: "1 Samuel", aliases: ["1 samuel", "1 sam", "1sa", "i samuel", "first samuel"] },
+      { code: "2SA", canonical: "2 Samuel", aliases: ["2 samuel", "2 sam", "2sa", "ii samuel", "second samuel"] },
+      { code: "1KI", canonical: "1 Kings", aliases: ["1 kings", "1 ki", "1k", "i kings", "first kings"] },
+      { code: "2KI", canonical: "2 Kings", aliases: ["2 kings", "2 ki", "2k", "ii kings", "second kings"] },
+      { code: "1CH", canonical: "1 Chronicles", aliases: ["1 chronicles", "1 chron", "1ch", "i chronicles", "first chronicles"] },
+      { code: "2CH", canonical: "2 Chronicles", aliases: ["2 chronicles", "2 chron", "2ch", "ii chronicles", "second chronicles"] },
+      { code: "EZR", canonical: "Ezra", aliases: ["ezr"] },
+      { code: "NEH", canonical: "Nehemiah", aliases: ["neh", "ne"] },
+      { code: "EST", canonical: "Esther", aliases: ["est", "es"] },
+      { code: "JOB", canonical: "Job", aliases: ["jb"] },
+      { code: "PSA", canonical: "Psalms", aliases: ["psalm", "psalms", "ps", "psa", "pslm"] },
+      { code: "PRO", canonical: "Proverbs", aliases: ["prov", "pro", "prv"] },
+      { code: "ECC", canonical: "Ecclesiastes", aliases: ["eccles", "eccl", "ecc"] },
+      { code: "SNG", canonical: "Song of Solomon", aliases: ["song", "song of songs", "song of solomon", "sos", "canticles", "song of sol"] },
+      { code: "ISA", canonical: "Isaiah", aliases: ["isa", "is"] },
+      { code: "JER", canonical: "Jeremiah", aliases: ["jer", "je"] },
+      { code: "LAM", canonical: "Lamentations", aliases: ["lam", "lament"] },
+      { code: "EZK", canonical: "Ezekiel", aliases: ["ezek", "ezk", "ez"] },
+      { code: "DAN", canonical: "Daniel", aliases: ["dan", "dn"] },
+      { code: "HOS", canonical: "Hosea", aliases: ["hos", "ho"] },
+      { code: "JOL", canonical: "Joel", aliases: ["joel", "jol", "jl"] },
+      { code: "AMO", canonical: "Amos", aliases: ["amos", "amo", "am"] },
+      { code: "OBA", canonical: "Obadiah", aliases: ["obadiah", "obad", "oba", "ob"] },
+      { code: "JON", canonical: "Jonah", aliases: ["jonah", "jon", "jh"] },
+      { code: "MIC", canonical: "Micah", aliases: ["micah", "mic", "mc"] },
+      { code: "NAM", canonical: "Nahum", aliases: ["nahum", "nah", "nam"] },
+      { code: "HAB", canonical: "Habakkuk", aliases: ["habakkuk", "hab", "hb"] },
+      { code: "ZEP", canonical: "Zephaniah", aliases: ["zeph", "zep", "zf"] },
+      { code: "HAG", canonical: "Haggai", aliases: ["haggai", "hag", "hg"] },
+      { code: "ZEC", canonical: "Zechariah", aliases: ["zech", "zec", "zch"] },
+      { code: "MAL", canonical: "Malachi", aliases: ["mal", "ml", "malachi"] },
+      { code: "MAT", canonical: "Matthew", aliases: ["matt", "mat", "mt"] },
+      { code: "MRK", canonical: "Mark", aliases: ["mark", "mrk", "mk"] },
+      { code: "LUK", canonical: "Luke", aliases: ["luke", "luk", "lk", "lu"] },
+      { code: "JHN", canonical: "John", aliases: ["john", "jn", "jhn", "joh"] },
+      { code: "ACT", canonical: "Acts", aliases: ["acts", "act", "ac"] },
+      { code: "ROM", canonical: "Romans", aliases: ["rom", "rm"] },
+      { code: "1CO", canonical: "1 Corinthians", aliases: ["1 corinthians", "1 cor", "1co", "i cor", "first corinthians"] },
+      { code: "2CO", canonical: "2 Corinthians", aliases: ["2 corinthians", "2 cor", "2co", "ii cor", "second corinthians"] },
+      { code: "GAL", canonical: "Galatians", aliases: ["gal", "ga"] },
+      { code: "EPH", canonical: "Ephesians", aliases: ["eph", "ep"] },
+      { code: "PHP", canonical: "Philippians", aliases: ["phil", "php", "pp"] },
+      { code: "COL", canonical: "Colossians", aliases: ["col", "co"] },
+      { code: "1TH", canonical: "1 Thessalonians", aliases: ["1 thessalonians", "1 thess", "1th", "i thess", "first thessalonians"] },
+      { code: "2TH", canonical: "2 Thessalonians", aliases: ["2 thessalonians", "2 thess", "2th", "ii thess", "second thessalonians"] },
+      { code: "1TI", canonical: "1 Timothy", aliases: ["1 timothy", "1 tim", "1ti", "i tim", "first timothy"] },
+      { code: "2TI", canonical: "2 Timothy", aliases: ["2 timothy", "2 tim", "2ti", "ii tim", "second timothy"] },
+      { code: "TIT", canonical: "Titus", aliases: ["tit", "ti"] },
+      { code: "PHM", canonical: "Philemon", aliases: ["philem", "phile", "phm", "phlm"] },
+      { code: "HEB", canonical: "Hebrews", aliases: ["heb", "he"] },
+      { code: "JAS", canonical: "James", aliases: ["jam", "jas", "jm"] },
+      { code: "1PE", canonical: "1 Peter", aliases: ["1 peter", "1 pet", "1pe", "i peter", "first peter"] },
+      { code: "2PE", canonical: "2 Peter", aliases: ["2 peter", "2 pet", "2pe", "ii peter", "second peter"] },
+      { code: "1JN", canonical: "1 John", aliases: ["1 john", "1 jn", "1jn", "i john", "first john"] },
+      { code: "2JN", canonical: "2 John", aliases: ["2 john", "2 jn", "2jn", "ii john", "second john"] },
+      { code: "3JN", canonical: "3 John", aliases: ["3 john", "3 jn", "3jn", "iii john", "third john"] },
+      { code: "JUD", canonical: "Jude", aliases: ["jude", "jud", "jd"] },
+      { code: "REV", canonical: "Revelation", aliases: ["rev", "revelations", "rv"] }
+    ];
+
+    const BOOK_LOOKUP = new Map();
+    BOOK_DATA.forEach((book) => {
+      const uniqueNames = new Set([book.canonical, book.code, ...book.aliases]);
+      uniqueNames.forEach((name) => {
+        const key = cleanBookKey(name);
+        if (key) BOOK_LOOKUP.set(key, book);
+      });
+    });
+
+    function cleanBookKey(raw) {
+      if (!raw) return "";
+      const romanMap = { i: "1", ii: "2", iii: "3" };
+      let key = raw.toLowerCase().replace(/'/g, "").replace(/\./g, " ").replace(/-/g, " ").replace(/,/g, " ").trim();
+      key = key.replace(/^the\s+/, "");
+      key = key.replace(/^(i{1,3})\b/, (m) => romanMap[m] || m);
+      key = key.replace(/\b(first|1st)\b/g, "1").replace(/\b(second|2nd)\b/g, "2").replace(/\b(third|3rd)\b/g, "3");
+      key = key.replace(/^([1-3])(?!\s)(?=[a-z])/i, "$1 ");
+      key = key.replace(/([a-z])([1-3])/g, "$1 $2");
+      key = key.replace(/\s+/g, " ");
+      return key.trim();
+    }
+
+    function prepareReference(input) {
+      return input
+        .replace(/[\u2013\u2014]/g, "-")
+        .replace(/[;,]/g, " ")
+        .replace(/v(?=\d)/gi, ":")
+        .replace(/([A-Za-z])(\d)/g, "$1 $2")
+        .replace(/^(\s*[1-3])(?!\s)(?=[A-Za-z])/i, (match) => `${match.trim()} `)
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function splitRange(reference) {
+      let dashIndex = -1;
+      for (let i = 0; i < reference.length; i++) {
+        if (reference[i] !== "-") continue;
+        if (i > 0 && /\d/.test(reference[i - 1])) {
+          dashIndex = i;
+          break;
+        }
+      }
+      if (dashIndex === -1) return { start: reference.trim(), end: null };
+      return {
+        start: reference.slice(0, dashIndex).trim(),
+        end: reference.slice(dashIndex + 1).trim()
+      };
+    }
+
+    function parseChapterVerse(numericChunk) {
+      if (numericChunk.includes(":")) {
+        const [chapterPart, versePart] = numericChunk.split(":");
+        return { chapter: parseInt(chapterPart, 10), verse: versePart ? parseInt(versePart, 10) : null };
+      }
+      return { chapter: parseInt(numericChunk, 10), verse: null };
+    }
+
+    function parseSegmentWithBook(part) {
+      const trimmed = (part || "").trim();
+      if (!trimmed) throw new Error("A book and chapter are required.");
+      const match = trimmed.match(/^(.*?)(\d[\d:\s]*)$/);
+      if (!match) throw new Error("Could not find a chapter/verse in that reference.");
+      const bookChunk = match[1].trim();
+      const numericChunk = match[2].trim();
+      if (!bookChunk) throw new Error("Include the book name (e.g., John, 1 Sam).");
+      const book = BOOK_LOOKUP.get(cleanBookKey(bookChunk));
+      if (!book) throw new Error(`Book "${bookChunk}" not found.`);
+      const position = parseChapterVerse(numericChunk);
+      return { bookCode: book.code, bookName: book.canonical, ...position };
+    }
+
+    function parseReference(rawInput) {
+      const prepared = prepareReference(rawInput);
+      const { start: startRaw, end: endRaw } = splitRange(prepared);
+      const start = parseSegmentWithBook(startRaw);
+      let end = null;
+      if (endRaw) {
+        if (/[A-Za-z]/.test(endRaw)) {
+          end = parseSegmentWithBook(endRaw);
+        } else {
+          const trimmed = endRaw.trim();
+          if (trimmed.includes(":")) {
+            const [chapterPart, versePartRaw] = trimmed.split(":");
+            const chapter = parseInt(chapterPart, 10);
+            const verse = versePartRaw ? parseInt(versePartRaw, 10) : null;
+            end = { bookCode: start.bookCode, bookName: start.bookName, chapter, verse };
+          } else {
+            end = { bookCode: start.bookCode, bookName: start.bookName, chapter: parseInt(trimmed, 10), verse: null };
+          }
+        }
+      }
+      return { start, end };
+    }
+
+    function buildSegment(segment) {
+      let part = `${segment.bookCode}.${segment.chapter}`;
+      if (segment.verse != null) {
+        part += `.${segment.verse}`;
+      }
+      return part;
+    }
+
+    function buildBibleUrl(range) {
+      const startPart = buildSegment(range.start);
+      const endPart = range.end ? `-${buildSegment(range.end)}` : "";
+      return `https://www.bible.com/bible/59/${startPart}${endPart}.ESV`;
+    }
+
+    function convertScriptureToLink(scripture) {
+      try {
+        const range = parseReference(scripture);
+        const url = buildBibleUrl(range);
+        return `<a href="${url}" target="_blank" rel="noopener">${scripture}</a>`;
+      } catch (e) {
+        console.error(`Failed to parse "${scripture}":`, e);
+        return scripture;
+      }
+    }
+
     const scripturePlan = [
       {
         weekTitle: "Advent & Christmas",
@@ -863,14 +1056,8 @@
       });
     }
 
-    function convertScriptureToLink(scripture) {
-      // Simple link creation: encode scripture reference for Bible.com search
-      const encoded = encodeURIComponent(scripture.replace(/v(?=\d)/gi, "").trim());
-      const style = 'color: #0066cc; text-decoration: none; border-bottom: 1px solid #0066cc;';
-      return `<a href="https://www.bible.com/search/${encoded}" target="_blank" rel="noopener" style="${style}">${scripture}</a>`;
-    }
-
     function renderScriptureDays(scriptures) {
+      const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       return weekDays
         .filter(day => scriptures[day])
         .map(day => `<div class="day-text">${day}: ${convertScriptureToLink(scriptures[day])}</div>`)
