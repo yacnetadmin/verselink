@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+  <div id="scripture-plan"></div>
+
+  <script>
+    const scripturePlan = [
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "The Kingdom of God Is Among Us",
+        subheading2: "01.01–01.03",
+        startDate: "2026-01-01",
+        endDate: "2026-01-03",
+        scriptures: {
+          Thursday: "Matthew 5v1–12",
+          Friday: "Hebrews 12v18–29",
+          Saturday: "Mark 12v41–44"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "The Coming Christ",
+        subheading2: "01.04–01.10",
+        startDate: "2026-01-04",
+        endDate: "2026-01-10",
+        scriptures: {
+          Sunday: "Psalm 132",
+          Monday: "Matthew 2v1–12",
+          Tuesday: "Rev. 1v1–8",
+          Wednesday: "Luke 21v25–36",
+          Thursday: "Acts 1v1–11",
+          Friday: "Mark 13v1–13, 24–37",
+          Saturday: "Ezekiel 34v1–10"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "God Is with Us",
+        subheading2: "01.11–01.17",
+        startDate: "2026-01-11",
+        endDate: "2026-01-17",
+        scriptures: {
+          Sunday: "Psalm 46",
+          Monday: "Isaiah 9v1–7",
+          Tuesday: "Matthew 1v18–25",
+          Wednesday: "Ezekiel 34v11–16",
+          Thursday: "Isaiah 40v1–11, 28–31",
+          Friday: "Philippians 4v4–9",
+          Saturday: "Isaiah 7v10–17"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "Listening & Obeying",
+        subheading2: "01.18–01.24",
+        startDate: "2026-01-18",
+        endDate: "2026-01-24",
+        scriptures: {
+          Sunday: "Psalm 119v97–112",
+          Monday: "John 14v15–24",
+          Tuesday: "Romans 6v15–23",
+          Wednesday: "James 1v19–27",
+          Thursday: "James 4v1–10",
+          Friday: "Mark 9v1–8",
+          Saturday: "Philippians 2v12–18"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "All Things New",
+        subheading2: "01.25–01.31",
+        startDate: "2026-01-25",
+        endDate: "2026-01-31",
+        scriptures: {
+          Sunday: "Psalm 126",
+          Monday: "John 3v1–8",
+          Tuesday: "Matthew 3v13–17",
+          Wednesday: "Ephesians 4v17–32",
+          Thursday: "2 Cor. 5v16–21",
+          Friday: "Isaiah 43v1–13",
+          Saturday: "Rev. 21v1–7"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "What God Has Promised",
+        subheading2: "02.01–02.07",
+        startDate: "2026-02-01",
+        endDate: "2026-02-07",
+        scriptures: {
+          Sunday: "Psalm 104",
+          Monday: "John 2v1–12",
+          Tuesday: "2 Peter 3v5–13",
+          Wednesday: "2 Cor. 1v12–22",
+          Thursday: "James 1v1–15",
+          Friday: "1 Kings 8v22–30",
+          Saturday: "Romans 4v16–25"
+        }
+      },
+      {
+        weekTitle: "Epiphany & the Season After",
+        subheading1: "Protected by God",
+        subheading2: "02.08–02.14",
+        startDate: "2026-02-08",
+        endDate: "2026-02-14",
+        scriptures: {
+          Sunday: "Psalm 91",
+          Monday: "Jeremiah 31v27–34",
+          Tuesday: "Rev. 22v1–5, 17",
+          Wednesday: "Luke 12v22–34",
+          Thursday: "John 10v1–18",
+          Friday: "Luke 15v1–10",
+          Saturday: "Psalm 121"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "The Good Shepherd",
+        subheading2: "02.15–02.21",
+        startDate: "2026-02-15",
+        endDate: "2026-02-21",
+        scriptures: {
+          Sunday: "Psalm 23",
+          Monday: "Ezekiel 34v11–16",
+          Tuesday: "1 Timothy 3v1–13",
+          Wednesday: "Joel 2v12–13",
+          Thursday: "Jeremiah 23",
+          Friday: "2 Cor. 4",
+          Saturday: "Micah 5v4–11"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Suffering",
+        subheading2: "02.22–02.28",
+        startDate: "2026-02-22",
+        endDate: "2026-02-28",
+        scriptures: {
+          Sunday: "Psalm 102",
+          Monday: "Job 3v1–10",
+          Tuesday: "Genesis 3v1–13",
+          Wednesday: "1 Peter 5v1–11",
+          Thursday: "Mark 15v1–37",
+          Friday: "2 Samuel 22v1–20",
+          Saturday: "Isaiah 58v1–12"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Loneliness",
+        subheading2: "03.01–03.07",
+        startDate: "2026-03-01",
+        endDate: "2026-03-07",
+        scriptures: {
+          Sunday: "Psalm 88",
+          Monday: "Genesis 18v22–33",
+          Tuesday: "Romans 11v1–6",
+          Wednesday: "Acts 2v22–36",
+          Thursday: "1 Kings 19v1–18",
+          Friday: "Psalm 27v7–14",
+          Saturday: "Mark 14v32–50"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Sin & Brokenness",
+        subheading2: "03.08–03.14",
+        startDate: "2026-03-08",
+        endDate: "2026-03-14",
+        scriptures: {
+          Sunday: "Psalm 51",
+          Monday: "Mark 7v20–23",
+          Tuesday: "Romans 3v9–20",
+          Wednesday: "1 John 1v7–10",
+          Thursday: "Proverbs 28v13",
+          Friday: "Romans 6v1–14",
+          Saturday: "Psalm 19v13–14"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Times of Difficulty",
+        subheading2: "03.15–03.21",
+        startDate: "2026-03-15",
+        endDate: "2026-03-21",
+        scriptures: {
+          Sunday: "Psalm 37",
+          Monday: "1 Peter 1v12–19",
+          Tuesday: "Exodus 17v1–7",
+          Wednesday: "Daniel 1",
+          Thursday: "Esther 8",
+          Friday: "Mark 13v3–13",
+          Saturday: "Psalm 18"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Perseverance",
+        subheading2: "03.22–03.28",
+        startDate: "2026-03-22",
+        endDate: "2026-03-28",
+        scriptures: {
+          Sunday: "Psalm 143",
+          Monday: "Philippians 3v1–12",
+          Tuesday: "2 Cor. 6v1–10",
+          Wednesday: "Ezekiel 36v22–36",
+          Thursday: "Proverbs 7v1–3",
+          Friday: "Acts 5v12–42",
+          Saturday: "Luke 21v5–19"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Journey to the Cross",
+        subheading2: "03.29–04.04",
+        startDate: "2026-03-29",
+        endDate: "2026-04-04",
+        scriptures: {
+          Sunday: "Mark 11v1–11",
+          Monday: "Matthew 21v12–17",
+          Tuesday: "Mark 11v12–25",
+          Wednesday: "John 12v1–11",
+          Thursday: "John 13v1–3",
+          Friday: "Matthew 27v32–56",
+          Saturday: "Luke 23v55–56"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Resurrected Life",
+        subheading2: "04.05–04.11",
+        startDate: "2026-04-05",
+        endDate: "2026-04-11",
+        scriptures: {
+          Sunday: "John 20v1–29",
+          Monday: "Psalm 148",
+          Tuesday: "1 Cor. 15v1–11",
+          Wednesday: "1 Cor. 15v12–19",
+          Thursday: "1 Cor. 15v20–34",
+          Friday: "1 Cor. 15v35–49",
+          Saturday: "1 Cor. 15v50–58"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "A Resurrection People",
+        subheading2: "04.12–04.18",
+        startDate: "2026-04-12",
+        endDate: "2026-04-18",
+        scriptures: {
+          Sunday: "Psalm 18",
+          Monday: "Romans 6v1–11",
+          Tuesday: "John 11v1–16",
+          Wednesday: "John 11v17–27",
+          Thursday: "John 11v28–37",
+          Friday: "John 11v38–44",
+          Saturday: "Acts 17v22–23"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Power of the Gospel",
+        subheading2: "04.19–04.25",
+        startDate: "2026-04-19",
+        endDate: "2026-04-25",
+        scriptures: {
+          Sunday: "Psalm 25",
+          Monday: "1 Cor. 1v18–31",
+          Tuesday: "2 Cor. 12v1–10",
+          Wednesday: "Colossians 1v9–23",
+          Thursday: "Ephesians 1v1–14",
+          Friday: "1 Peter 1v1–9",
+          Saturday: "Romans 1v1–17"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "Jesus Is the Way",
+        subheading2: "04.26–05.02",
+        startDate: "2026-04-26",
+        endDate: "2026-05-02",
+        scriptures: {
+          Sunday: "Psalm 89",
+          Monday: "John 12v20–36",
+          Tuesday: "Luke 5v27–39",
+          Wednesday: "Matthew 8v18–27",
+          Thursday: "Matthew 11v1–15",
+          Friday: "Hebrews 10v19–25",
+          Saturday: "John 14v1–14"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "The Now & Not Yet",
+        subheading2: "05.03–05.09",
+        startDate: "2026-05-03",
+        endDate: "2026-05-09",
+        scriptures: {
+          Sunday: "Psalm 93",
+          Monday: "John 15v1–11",
+          Tuesday: "2 Cor. 4",
+          Wednesday: "2 Cor. 5v1–10",
+          Thursday: "Acts 11v19–26",
+          Friday: "1 John 3v11–24",
+          Saturday: "John 10v1–18"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "From Death to Life",
+        subheading2: "05.10–05.16",
+        startDate: "2026-05-10",
+        endDate: "2026-05-16",
+        scriptures: {
+          Sunday: "Psalm 116",
+          Monday: "Romans 8v31–39",
+          Tuesday: "Matthew 11v2–19",
+          Wednesday: "1 Cor. 15v1–28",
+          Thursday: "Colossians 3v1–17",
+          Friday: "Isaiah 25v1–9",
+          Saturday: "Romans 1v1–7, 16–17"
+        }
+      },
+      {
+        weekTitle: "Lent, Easter & Pentecost",
+        subheading1: "God Transforms Us",
+        subheading2: "05.17–05.23",
+        startDate: "2026-05-17",
+        endDate: "2026-05-23",
+        scriptures: {
+          Sunday: "Psalm 65",
+          Monday: "Colossians 3v1–17",
+          Tuesday: "Ezekiel 36v22–32",
+          Wednesday: "Luke 19v1–10",
+          Thursday: "John 9",
+          Friday: "Acts 26v2–29",
+          Saturday: "Ephesians 5v1–20"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Filled with the Spirit",
+        subheading2: "05.24–05.30",
+        startDate: "2026-05-24",
+        endDate: "2026-05-30",
+        scriptures: {
+          Sunday: "Acts 2",
+          Monday: "Mark 5v25–34",
+          Tuesday: "Matthew 14v13–21",
+          Wednesday: "Mark 5v21–24, 35–43",
+          Thursday: "Luke 8v22–25",
+          Friday: "Mark 5v1–20",
+          Saturday: "Mark 2v1–12"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "I Am Yours",
+        subheading2: "05.31–06.06",
+        startDate: "2026-05-31",
+        endDate: "2026-06-06",
+        scriptures: {
+          Sunday: "Psalm 16",
+          Monday: "1 Samuel 3v1–14",
+          Tuesday: "1 Samuel 3v15–21",
+          Wednesday: "Luke 1v38",
+          Thursday: "Acts 10v34–43",
+          Friday: "Psalm 10v12–18",
+          Saturday: "Matthew 9v9–13"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "From Fear to Courage",
+        subheading2: "06.07–06.13",
+        startDate: "2026-06-07",
+        endDate: "2026-06-13",
+        scriptures: {
+          Sunday: "Psalm 56",
+          Monday: "Matthew 10v26–31",
+          Tuesday: "Genesis 15v1–6",
+          Wednesday: "John 20v19–23",
+          Thursday: "Luke 5v1–11",
+          Friday: "Deut. 31v7–8",
+          Saturday: "Philippians 1v12–14"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Making Room to Listen",
+        subheading2: "06.14–06.20",
+        startDate: "2026-06-14",
+        endDate: "2026-06-20",
+        scriptures: {
+          Sunday: "Psalm 8",
+          Monday: "Matthew 6v16–18",
+          Tuesday: "Isaiah 58v6–9",
+          Wednesday: "Acts 13v1–3",
+          Thursday: "Acts 14v21–23",
+          Friday: "Ezra 8v21–23",
+          Saturday: "Luke 2v36–38"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Colossians",
+        subheading2: "06.21–06.27",
+        startDate: "2026-06-21",
+        endDate: "2026-06-27",
+        scriptures: {
+          Sunday: "Psalm 146",
+          Monday: "Colossians 1v1–14",
+          Tuesday: "Colossians 1v14–29",
+          Wednesday: "Colossians 2v1–15",
+          Thursday: "Colossians 2v16–23",
+          Friday: "Colossians 3",
+          Saturday: "Colossians 4"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Practicing the Presence of God",
+        subheading2: "06.28–07.04",
+        startDate: "2026-06-28",
+        endDate: "2026-07-04",
+        scriptures: {
+          Sunday: "Psalm 19",
+          Monday: "Joel 2v18–27",
+          Tuesday: "Isaiah 63v7–14",
+          Wednesday: "Exodus 33v7–23",
+          Thursday: "Rev. 21v1–7",
+          Friday: "Matthew 1v18–25",
+          Saturday: "Luke 24v13–35"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Ruth",
+        subheading2: "07.05–07.11",
+        startDate: "2026-07-05",
+        endDate: "2026-07-11",
+        scriptures: {
+          Sunday: "Psalm 19",
+          Monday: "Ruth 1",
+          Tuesday: "Ruth 2v1–16",
+          Wednesday: "Ruth 2v17–23",
+          Thursday: "Ruth 3",
+          Friday: "Ruth 4v1–12",
+          Saturday: "Ruth 4v13–22"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Life Together",
+        subheading2: "07.12–07.18",
+        startDate: "2026-07-12",
+        endDate: "2026-07-18",
+        scriptures: {
+          Sunday: "Psalm 133",
+          Monday: "Colossians 3v5–17",
+          Tuesday: "Ephesians 4v1–16",
+          Wednesday: "Philemon",
+          Thursday: "1 Cor. 6v1–10",
+          Friday: "1 Cor. 3v5–23",
+          Saturday: "Romans 12v1–21"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Life in Christ",
+        subheading2: "07.19–07.25",
+        startDate: "2026-07-19",
+        endDate: "2026-07-25",
+        scriptures: {
+          Sunday: "Psalm 130",
+          Monday: "John 17v1–5",
+          Tuesday: "Romans 6v1–11",
+          Wednesday: "Ephesians 2v1–10",
+          Thursday: "Galatians 2v11–21",
+          Friday: "Romans 6v15–23",
+          Saturday: "Romans 8v18–30"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Questions of Jesus",
+        subheading2: "07.26–08.01",
+        startDate: "2026-07-26",
+        endDate: "2026-08-01",
+        scriptures: {
+          Sunday: "Psalm 22",
+          Monday: "Matthew 16v13–20",
+          Tuesday: "Mark 10v46–52",
+          Wednesday: "Matthew 12v46–50",
+          Thursday: "Mark 8v14–21",
+          Friday: "Luke 6v46–49",
+          Saturday: "John 21v15–17"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "The Sermon on the Mount",
+        subheading2: "08.02–08.08",
+        startDate: "2026-08-02",
+        endDate: "2026-08-08",
+        scriptures: {
+          Sunday: "Psalm 119v1–16",
+          Monday: "Matthew 5v1–26",
+          Tuesday: "Matthew 5v27–48",
+          Wednesday: "Matthew 6v1–18",
+          Thursday: "Matthew 6v19–34",
+          Friday: "Matthew 7v1–14",
+          Saturday: "Matthew 7v15–29"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Freedom in Christ",
+        subheading2: "08.09–08.15",
+        startDate: "2026-08-09",
+        endDate: "2026-08-15",
+        scriptures: {
+          Sunday: "Psalm 62",
+          Monday: "Galatians 5v1–15",
+          Tuesday: "Psalm 32",
+          Wednesday: "John 10v1–18",
+          Thursday: "1 Peter 2v9–25",
+          Friday: "Daniel 3v8–18",
+          Saturday: "1 Cor. 10v14–33"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "True Humility",
+        subheading2: "08.16–08.22",
+        startDate: "2026-08-16",
+        endDate: "2026-08-22",
+        scriptures: {
+          Sunday: "Psalm 131",
+          Monday: "Philippians 2v1–18",
+          Tuesday: "1 Peter 3v8–12",
+          Wednesday: "Zephaniah 3",
+          Thursday: "Romans 13v1–10",
+          Friday: "2 Chronicles 7v11–22",
+          Saturday: "Isaiah 57v14–21"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Forgiveness",
+        subheading2: "08.23–08.29",
+        startDate: "2026-08-23",
+        endDate: "2026-08-29",
+        scriptures: {
+          Sunday: "Psalm 32",
+          Monday: "2 Cor. 3v2–3",
+          Tuesday: "Luke 6v27–36",
+          Wednesday: "Luke 6v37–42",
+          Thursday: "Luke 17v1–6",
+          Friday: "1 John 2v1–17",
+          Saturday: "Acts 10v34–43"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Reconciliation",
+        subheading2: "08.30–09.05",
+        startDate: "2026-08-30",
+        endDate: "2026-09-05",
+        scriptures: {
+          Sunday: "Psalm 41",
+          Monday: "John 18v15–18, 25–27, 21v15–19",
+          Tuesday: "Hosea 2v14–23",
+          Wednesday: "Leviticus 25v8–22",
+          Thursday: "Psalm 94",
+          Friday: "2 Cor. 5v11–21",
+          Saturday: "Galatians 6v1–10"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "The Cost of Servanthood",
+        subheading2: "09.06–09.12",
+        startDate: "2026-09-06",
+        endDate: "2026-09-12",
+        scriptures: {
+          Sunday: "Psalm 34",
+          Monday: "John 21v15–23",
+          Tuesday: "Isaiah 53v4–6",
+          Wednesday: "2 Cor. 4v7–18",
+          Thursday: "Acts 7v54–60",
+          Friday: "Luke 14v25–33",
+          Saturday: "2 Cor. 13v5–10"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Pray for One Another",
+        subheading2: "09.13–09.19",
+        startDate: "2026-09-13",
+        endDate: "2026-09-19",
+        scriptures: {
+          Sunday: "Psalm 12",
+          Monday: "Colossians 1v3–14",
+          Tuesday: "Nehemiah 1v1–11",
+          Wednesday: "Luke 11v5–13",
+          Thursday: "James 5v13–20",
+          Friday: "Luke 22v31–34",
+          Saturday: "Matthew 5v43–48, 6v5–15"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Fear Not",
+        subheading2: "09.20–09.26",
+        startDate: "2026-09-20",
+        endDate: "2026-09-26",
+        scriptures: {
+          Sunday: "Psalm 27",
+          Monday: "Hebrews 13v1–6",
+          Tuesday: "Psalm 56",
+          Wednesday: "Matthew 14v22–33",
+          Thursday: "2 Kings 6v8–23",
+          Friday: "Isaiah 12v1–6",
+          Saturday: "1 John 4v13–21"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Come & Rest",
+        subheading2: "09.27–10.03",
+        startDate: "2026-09-27",
+        endDate: "2026-10-03",
+        scriptures: {
+          Sunday: "Psalm 71",
+          Monday: "Matthew 11v25–30",
+          Tuesday: "Isaiah 40v27–31",
+          Wednesday: "Psalm 116v1–7",
+          Thursday: "Hebrews 4v1–11",
+          Friday: "Jeremiah 6v1–16",
+          Saturday: "Mark 6v30–42"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Choose Life",
+        subheading2: "10.04–10.10",
+        startDate: "2026-10-04",
+        endDate: "2026-10-10",
+        scriptures: {
+          Sunday: "Psalm 36",
+          Monday: "Romans 6v12–14",
+          Tuesday: "Proverbs 8v32–36",
+          Wednesday: "Matthew 10v34–39",
+          Thursday: "Deut. 30v15–20",
+          Friday: "John 3v31–36",
+          Saturday: "John 6v35–40"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Justice",
+        subheading2: "10.11–10.17",
+        startDate: "2026-10-11",
+        endDate: "2026-10-17",
+        scriptures: {
+          Sunday: "Psalm 72",
+          Monday: "Ezekiel 34v1–16",
+          Tuesday: "Exodus 6v1–13",
+          Wednesday: "Luke 11v37–44",
+          Thursday: "Psalm 89v1–14",
+          Friday: "James 3v13–18",
+          Saturday: "Ephesians 4v17–24"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Compassion",
+        subheading2: "10.18–10.24",
+        startDate: "2026-10-18",
+        endDate: "2026-10-24",
+        scriptures: {
+          Sunday: "Psalm 103",
+          Monday: "Ephesians 4v25–5v2",
+          Tuesday: "Genesis 9v8–17",
+          Wednesday: "John 4v7–26",
+          Thursday: "Exodus 2v1–10",
+          Friday: "1 Peter 1v3–12",
+          Saturday: "Matthew 20v29–34"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Set Apart by God",
+        subheading2: "10.25–10.31",
+        startDate: "2026-10-25",
+        endDate: "2026-10-31",
+        scriptures: {
+          Sunday: "Psalm 92",
+          Monday: "Genesis 9v8–17",
+          Tuesday: "Isaiah 63v7–9",
+          Wednesday: "Romans 5v1–11",
+          Thursday: "1 Peter 2v1–10",
+          Friday: "Isaiah 45v1–8",
+          Saturday: "Joel 2v18–27"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Wisdom",
+        subheading2: "11.01–11.07",
+        startDate: "2026-11-01",
+        endDate: "2026-11-07",
+        scriptures: {
+          Sunday: "Psalm 127",
+          Monday: "Proverbs 2v1–15, 20–22",
+          Tuesday: "2 Chronicles 1v7–13",
+          Wednesday: "1 Cor. 2v6–16",
+          Thursday: "Job 28v12–28",
+          Friday: "James 1v19–27",
+          Saturday: "Matthew 18v1–5"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Gentleness",
+        subheading2: "11.08–11.14",
+        startDate: "2026-11-08",
+        endDate: "2026-11-14",
+        scriptures: {
+          Sunday: "Psalm 119v73–80",
+          Monday: "Isaiah 11v1–9",
+          Tuesday: "John 1v29–39",
+          Wednesday: "Deut. 32v1–14",
+          Thursday: "Rev. 5",
+          Friday: "Acts 8v26–40",
+          Saturday: "1 Peter 1v17–25"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "Living Water",
+        subheading2: "11.15–11.21",
+        startDate: "2026-11-15",
+        endDate: "2026-11-21",
+        scriptures: {
+          Sunday: "Psalm 63",
+          Monday: "Exodus 17v1–7",
+          Tuesday: "John 4v7–15",
+          Wednesday: "John 7v37–39",
+          Thursday: "Isaiah 12v1–6",
+          Friday: "Isaiah 42v1–9",
+          Saturday: "Rev. 7v13–17"
+        }
+      },
+      {
+        weekTitle: "Ordinary Time",
+        subheading1: "A New Beginning",
+        subheading2: "11.22–11.28",
+        startDate: "2026-11-22",
+        endDate: "2026-11-28",
+        scriptures: {
+          Sunday: "Psalm 40",
+          Monday: "Jeremiah 31v31–34",
+          Tuesday: "Isaiah 43v14–21",
+          Wednesday: "2 Cor. 5v16–21",
+          Thursday: "Rev. 21v1–5",
+          Friday: "2 Cor. 3v1–6",
+          Saturday: "John 13v31–35"
+        }
+      },
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "Hope",
+        subheading2: "11.29–12.05",
+        startDate: "2026-11-29",
+        endDate: "2026-12-05",
+        scriptures: {
+          Sunday: "Psalm 33",
+          Monday: "Hebrews 6v13–20",
+          Tuesday: "Romans 8v18–25",
+          Wednesday: "1 Peter 1v3–7",
+          Thursday: "Luke 2v22–38",
+          Friday: "Isaiah 40v28–31",
+          Saturday: "Romans 15v13"
+        }
+      },
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "Peace",
+        subheading2: "12.06–12.12",
+        startDate: "2026-12-06",
+        endDate: "2026-12-12",
+        scriptures: {
+          Sunday: "Psalm 4",
+          Monday: "Numbers 6v22–27",
+          Tuesday: "Romans 12v17–21",
+          Wednesday: "Isaiah 26v1–4",
+          Thursday: "Colossians 3v15–17",
+          Friday: "Philippians 4v4–7",
+          Saturday: "John 14v25–27"
+        }
+      },
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "Joy",
+        subheading2: "12.13–12.19",
+        startDate: "2026-12-13",
+        endDate: "2026-12-19",
+        scriptures: {
+          Sunday: "Psalm 96",
+          Monday: "John 16v22–24",
+          Tuesday: "Psalm 5v11–12",
+          Wednesday: "Zephaniah 3v14–17",
+          Thursday: "Luke 15v8–10",
+          Friday: "Romans 12v12–15",
+          Saturday: "Psalm 16v9–11"
+        }
+      },
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "Love",
+        subheading2: "12.20–12.26",
+        startDate: "2026-12-20",
+        endDate: "2026-12-26",
+        scriptures: {
+          Sunday: "Psalm 136",
+          Monday: "1 John 4v7–21",
+          Tuesday: "1 Corinthians 13",
+          Wednesday: "Matthew 1v18–25",
+          Thursday: "Luke 2v1–21",
+          Friday: "Colossians 3v12–14",
+          Saturday: "John 13v34–35"
+        }
+      },
+      {
+        weekTitle: "Advent & Christmas",
+        subheading1: "The Kingdom of God Is Among Us",
+        subheading2: "12.27–12.31",
+        startDate: "2026-12-27",
+        endDate: "2026-12-31",
+        scriptures: {
+          Sunday: "Psalm 24",
+          Monday: "Deut. 30v11–14",
+          Tuesday: "Psalm 145",
+          Wednesday: "Luke 17v20–21",
+          Thursday: "Matthew 5v1–12"
+        }
+      }
+    ];
+
+    const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    function getCurrentWeek() {
+      const today = new Date();
+      return scripturePlan.find(week => {
+        const start = new Date(week.startDate);
+        const end = new Date(week.endDate);
+        return today >= start && today <= end;
+      });
+    }
+
+    function convertScriptureToLink(scripture) {
+      // Simple link creation: encode scripture reference for Bible.com search
+      const encoded = encodeURIComponent(scripture.replace(/v(?=\d)/gi, "").trim());
+      const style = 'color: #0066cc; text-decoration: none; border-bottom: 1px solid #0066cc;';
+      return `<a href="https://www.bible.com/search/${encoded}" target="_blank" rel="noopener" style="${style}">${scripture}</a>`;
+    }
+
+    function renderScriptureDays(scriptures) {
+      return weekDays
+        .filter(day => scriptures[day])
+        .map(day => `<div class="day-text">${day}: ${convertScriptureToLink(scriptures[day])}</div>`)
+        .join("");
+    }
+
+    const container = document.getElementById('scripture-plan');
+    const currentWeek = getCurrentWeek();
+
+    if (currentWeek) {
+      const weekDiv = document.createElement('div');
+      weekDiv.classList.add('week-container');
+      weekDiv.innerHTML = `
+        <h2 class="week-heading">${currentWeek.weekTitle}</h2>
+        <h3 class="week-subheading">${currentWeek.subheading1}</h3>
+        <h3 class="week-subheading">${currentWeek.subheading2}</h3>
+        ${renderScriptureDays(currentWeek.scriptures)}
+      `;
+      container.appendChild(weekDiv);
+    } else {
+      container.innerHTML = "<p>No scripture plan is available for this week.</p>";
+    }
+  </script>
+</body>
+</html>
