@@ -206,10 +206,12 @@
       try {
         const segments = scripture.split(',').map(s => s.trim());
         let lastBookName = null;
+        let lastChapter = null;
         const links = segments.map(segment => {
           try {
             const range = parseReference(segment);
             lastBookName = range.start.bookName;
+            lastChapter = range.start.chapter;
             const url = buildBibleUrl(range);
             return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
           } catch (e) {
@@ -217,7 +219,8 @@
             // Check if segment contains no letters (numeric/punctuation only)
             if (lastBookName && !/[a-z]/i.test(segment)) {
               try {
-                const augmentedSegment = lastBookName + ' ' + segment;
+                // Prepend both book name and chapter to preserve context
+                const augmentedSegment = lastBookName + ' ' + lastChapter + ':' + segment;
                 const range = parseReference(augmentedSegment);
                 const url = buildBibleUrl(range);
                 return `<a href="${url}" target="_blank" rel="noopener">${segment}</a>`;
